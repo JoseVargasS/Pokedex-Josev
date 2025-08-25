@@ -1,6 +1,6 @@
 import s from "./NavBar.module.css";
 
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function NavBar() {
   const { pathname } = useLocation();
@@ -19,30 +19,36 @@ function NavBar() {
   return (
     <section className={s.navBar}>
       <div>
-        <img
-          src={
-            pathname === "/pokesearch" || pathname === "/favorites"
-              ? "src/images/profile-out.svg"
-              : path
-          }
-          alt="profile"
-        />
-        <img
-          src={
-            pathname === "/profile" || pathname === "/favorites"
-              ? "src/images/search-out.svg"
-              : path
-          }
-          alt="search pokemon"
-        />
-        <img
-          src={
-            pathname === "/profile" || pathname === "/pokesearch"
-              ? "src/images/fav-out.svg"
-              : path
-          }
-          alt="favorites"
-        />
+        <Link to="/profile">
+          <img
+            src={
+              pathname === "/pokesearch" || pathname === "/favorites"
+                ? "src/images/profile-out.svg"
+                : path
+            }
+            alt="profile"
+          />
+        </Link>
+        <Link to="/pokesearch">
+          <img
+            src={
+              pathname === "/profile" || pathname === "/favorites"
+                ? "src/images/search-out.svg"
+                : path
+            }
+            alt="search pokemon"
+          />
+        </Link>
+        <Link to="/favorites">
+          <img
+            src={
+              pathname === "/profile" || pathname === "/pokesearch"
+                ? "src/images/fav-out.svg"
+                : path
+            }
+            alt="favorites"
+          />
+        </Link>
       </div>
     </section>
   );

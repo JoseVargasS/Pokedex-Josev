@@ -10,6 +10,7 @@ import { loader as loginLoader } from "./routes/Login/loader";
 import { loader as pokeSearchLoader } from "./routes/PokeSearch/loader";
 import { loader as profileLoader } from "./routes/Profile/loader";
 import { authProvider } from "./auth";
+import { action as profileAction } from "./routes/Profile/action";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,7 @@ export const router = createBrowserRouter([
     path: "profile",
     element: <Profile />,
     loader: profileLoader,
+    action: profileAction,
   },
   {
     path: "logout",

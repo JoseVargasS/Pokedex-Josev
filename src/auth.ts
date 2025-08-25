@@ -1,10 +1,10 @@
 const tokenKey = "auth_token";
-const savedToken = localStorage.getItem(tokenKey);
-const BASE_URL = "https://poke-collection-api-production.up.railway.app/";
+export const BASE_URL =
+  "https://poke-collection-api-production.up.railway.app/";
 
 export const authProvider = {
-  isAuthenticated: !!savedToken as boolean,
-  token: savedToken as string | null,
+  isAuthenticated: !!localStorage.getItem(tokenKey) as boolean,
+  token: localStorage.getItem(tokenKey) as string | null,
 
   async login(email: string, password: string) {
     const url = `${BASE_URL}/login`;
@@ -61,18 +61,21 @@ export const authProvider = {
   },
 
   async updateProfile(
-    email: string,
-    first_name: string,
-    last_name: string,
-    password: string
+    updateData: Partial<{
+      email: string;
+      first_name: string;
+      last_name: string;
+      password: string;
+    }>
   ) {
     const url = `${BASE_URL}/profile`;
+
     const options: RequestInit = {
-      method: "POST",
-      body: JSON.stringify({ email, first_name, last_name, password }),
+      method: "PATCH",
+      body: JSON.stringify(updateData),
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${savedToken}`,
+        Authorization: `Bearer ${localStorage.getItem(tokenKey)}`,
       },
     };
     //fetch API/profile
@@ -80,7 +83,8 @@ export const authProvider = {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
+      authProvider.token = data.token;
+      localStorage.setItem(tokenKey, data.token);
     } else {
       const error = await response.json();
       throw new Error(error.errors || "Another error in authentication");

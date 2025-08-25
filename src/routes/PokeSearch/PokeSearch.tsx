@@ -1,9 +1,12 @@
 import s from "./PokeSearch.module.css";
-import { Form, useFetcher } from "react-router-dom";
+import { Form, useFetcher, useNavigation } from "react-router-dom";
 import NavBar from "../NavBar";
+import { HashLoader } from "react-spinners";
 
 function PokeSearch() {
   const Fetcher = useFetcher();
+  const navigation = useNavigation();
+
   return (
     <>
       <Fetcher.Form method="post" action="/logout">
@@ -16,8 +19,15 @@ function PokeSearch() {
           </label>
           <button>Search</button>
         </Form>
-        <img src="src/images/unknow-poke.png" alt="unknow pokemon" />
-        <h3>Ready to search</h3>
+
+        {navigation.state === "submitting" ? (
+          <HashLoader />
+        ) : (
+          <>
+            <img src="src/images/unknow-poke.png" alt="unknow pokemon" />
+            <h3>Ready to search</h3>
+          </>
+        )}
       </div>
       <NavBar />
     </>

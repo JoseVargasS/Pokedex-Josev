@@ -68,8 +68,8 @@
 }
 
 .search button:hover {
-  background-color: rgba(0, 0, 0, 1);
   cursor: pointer;
+  background-color: rgba(0, 0, 0, 1);
 }
 
 .search img {
@@ -77,13 +77,13 @@
   width: 144px;
   height: 144px;
   left: 108px;
-  top: 128px;
+  top: 158px;
 }
 
 .search h3 {
   position: absolute;
   left: 123px;
-  top: 288px;
+  top: 318px;
   font-weight: 400;
   font-size: 14px;
   line-height: 16px;

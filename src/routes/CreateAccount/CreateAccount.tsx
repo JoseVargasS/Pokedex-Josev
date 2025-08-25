@@ -1,7 +1,10 @@
-import { Form, Link } from "react-router-dom";
+import { Form, Link, useNavigation } from "react-router-dom";
 import s from "./CreateAccount.module.css";
+import { HashLoader } from "react-spinners";
 
 function CreateAccount() {
+  const navigation = useNavigation();
+
   return (
     <>
       <h1 className={s.title}>Welcome to Poke Collection</h1>
@@ -23,7 +26,12 @@ function CreateAccount() {
             <p>Last Name</p>
             <input name="last_name" placeholder="Boluarte" />
           </label>
-          <button type="submit">Create Account</button>
+
+          {navigation.state === "submitting" ? (
+            <HashLoader />
+          ) : (
+            <button type="submit">Create Account</button>
+          )}
         </Form>
         <Link to="/">
           <h3>Login</h3>
