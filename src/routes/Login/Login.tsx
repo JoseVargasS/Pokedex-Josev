@@ -1,17 +1,15 @@
-import { Form, useNavigate } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import s from "./Login.module.css";
 
 function Login() {
-  const navigate = useNavigate();
-
   return (
     <>
       <h1 className={s.title}>Welcome to Poke Collection</h1>
       <div className={s.loginForm}>
-        <Form method="post" action="">
+        <Form method="post" replace>
           <label>
             <p>Email</p>
-            <input name="username" placeholder="example@mail.com" />
+            <input name="email" placeholder="example@mail.com" />
           </label>
           <label>
             <p>Password</p>
@@ -19,7 +17,9 @@ function Login() {
           </label>
           <button type="submit">Login</button>
         </Form>
-        <h3 onClick={() => navigate("/create-account")}>Create Account</h3>
+        <Link to="/create-account">
+          <h3>Create Account</h3>
+        </Link>
       </div>
     </>
   );

@@ -10,7 +10,7 @@ function Profile() {
         <Form method="post" action="">
           <label>
             <p>Email</p>
-            <input name="username" />
+            <input name="email" />
           </label>
           <label>
             <p>Password</p>

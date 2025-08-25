@@ -1,3 +1,26 @@
+.logout {
+  position: absolute;
+  left: 257px;
+  top: 15px;
+  padding: 8px 16px;
+  gap: 10px;
+  background-color: transparent;
+  border-radius: 16px;
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 11px;
+  color: rgba(102, 102, 102, 1);
+  border: solid 1px rgb(145, 144, 144);
+  transition: background-color 0.3s ease;
+}
+
+.logout:hover {
+  background-color: rgb(230, 84, 84);
+  cursor: pointer;
+  color: rgba(255, 255, 255, 1);
+  border: none;
+}
+
 .search {
   position: relative;
 }
@@ -10,7 +33,7 @@
   width: 283px;
   height: 32px;
   left: 39px;
-  top: 32px;
+  top: 62px;
 }
 
 .search label {
@@ -41,6 +64,12 @@
   line-height: 16px;
   color: rgba(255, 255, 255, 1);
   border: none;
+  transition: background-color 0.3s ease;
+}
+
+.search button:hover {
+  background-color: rgba(0, 0, 0, 1);
+  cursor: pointer;
 }
 
 .search img {
