@@ -25,7 +25,7 @@
   position: relative;
 }
 
-.search form {
+.search > form {
   display: flex;
   padding: 0px;
   gap: 8px;
@@ -36,13 +36,13 @@
   top: 62px;
 }
 
-.search label {
+.search > form > label {
   width: 192px;
   background: rgba(255, 255, 255, 1);
   border-radius: 16px;
 }
 
-.search input {
+.search > form > label > input {
   padding: 8px;
   border: none;
   border-radius: 16px;
@@ -54,7 +54,7 @@
   height: 100%;
 }
 
-.search button {
+.search > form > button {
   padding: 8px 16px;
   gap: 10px;
   background: rgba(102, 102, 102, 1);
@@ -67,12 +67,133 @@
   transition: background-color 0.3s ease;
 }
 
-.search button:hover {
+.search > form > button:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 1);
 }
 
-.search img {
+.cardTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  gap: 4px;
+  position: absolute;
+  left: 80px;
+  top: 126px;
+}
+
+.cardTitle > h1 {
+  text-align: center;
+  color: #212121;
+  width: 197px;
+}
+
+.cardTitle > h3 {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  color: #212121;
+}
+
+.imgSearch {
+  padding: 0px;
+  position: absolute;
+  width: 144px;
+  height: 144px;
+  left: 108px;
+  top: 194px;
+}
+
+.cardLabel {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0px;
+  gap: 16px;
+  position: absolute;
+  width: 312px;
+  left: 24px;
+  top: 354px;
+}
+
+.cardLabel > span {
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 16px;
+  color: rgba(255, 255, 255, 1);
+}
+
+.cardChar {
+  display: flex;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 24px;
+  position: absolute;
+  left: 92px;
+  top: 390px;
+}
+
+.cardChar > div {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardChar > div > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 36px;
+  gap: 8px;
+}
+
+.cardChar hr {
+  width: 1px;
+  height: 48px;
+  margin: 0;
+  border: none;
+  background-color: rgba(224, 224, 224, 1);
+  align-self: center;
+}
+
+.cardChar img {
+  height: 16px;
+}
+
+.cardChar span {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 16px;
+  display: flex;
+  place-items: center;
+  color: rgba(15, 23, 42, 1);
+}
+
+.cardChar h4 {
+  text-align: center;
+  font-size: 8px;
+  line-height: 12px;
+  color: rgba(100, 116, 139, 1);
+}
+
+.error {
+  width: 197px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  color: rgba(15, 23, 42, 1);
+  position: absolute;
+  left: 80px;
+  top: 194px;
+}
+
+.default > img {
   position: absolute;
   width: 144px;
   height: 144px;
@@ -80,7 +201,7 @@
   top: 158px;
 }
 
-.search h3 {
+.default > h3 {
   position: absolute;
   left: 123px;
   top: 318px;
@@ -89,4 +210,28 @@
   line-height: 16px;
   text-align: center;
   color: rgba(0, 0, 0, 1);
+}
+
+.spinner {
+  position: absolute;
+  left: 108px;
+  top: 194px;
+}
+
+.buttonFav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 10px;
+  position: absolute;
+  left: 90px;
+  top: 480px;
+  background: rgba(102, 102, 102, 1);
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  color: rgba(255, 255, 255, 1);
+  border: none;
 }

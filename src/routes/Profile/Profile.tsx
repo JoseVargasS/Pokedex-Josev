@@ -14,8 +14,6 @@ interface ProfileData {
 function Profile() {
   const Fetcher = useFetcher();
   const navigation = useNavigation();
-  console.log(navigation.state);
-
   const [profileData, setProfileData] = useState<ProfileData>({
     email: "",
     first_name: "",

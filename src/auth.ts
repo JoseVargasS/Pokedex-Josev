@@ -93,6 +93,7 @@ export const authProvider = {
 
   logout() {
     localStorage.removeItem(tokenKey);
+    localStorage.removeItem("pokemon_favs");
     authProvider.isAuthenticated = false;
     authProvider.token = null;
   },

@@ -11,6 +11,7 @@ import { loader as pokeSearchLoader } from "./routes/PokeSearch/loader";
 import { loader as profileLoader } from "./routes/Profile/loader";
 import { authProvider } from "./auth";
 import { action as profileAction } from "./routes/Profile/action";
+import Favorites from "./routes/Favorites";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
     element: <Profile />,
     loader: profileLoader,
     action: profileAction,
+  },
+  {
+    path: "favorites",
+    element: <Favorites />,
   },
   {
     path: "logout",

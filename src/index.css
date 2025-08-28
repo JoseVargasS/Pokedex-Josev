@@ -12,6 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: rgb(56, 55, 55);
 }
 
 #root {
@@ -19,6 +20,7 @@ body {
   width: 360px;
   height: 800px;
   background-color: rgba(247, 247, 247, 1);
+  border-radius: 16px;
 }
 
 h1 {
