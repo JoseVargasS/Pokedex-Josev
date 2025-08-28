@@ -21,6 +21,14 @@ function PokeSearch() {
   } = useSearch();
   const { isFavorite, toggleFavorite } = useFavorites(pokemonData!, imageUrl);
 
+  const src = isFavorite ? "src/images/fav-on.svg" : "src/images/fav-off.svg";
+  const alt = isFavorite ? "favorite" : "no-favorite";
+  const buttonName = isFavorite ? "Remove Favorite" : "Mark as Favorite";
+
+  const errorMessage = errorSearch && pokemon !== "" && (
+    <p className={s.error}>{errorSearch}</p>
+  );
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     handleSearch(pokemon);
@@ -45,9 +53,7 @@ function PokeSearch() {
           <button type="submit">Search</button>
         </form>
 
-        {errorSearch && pokemon !== "" && (
-          <p className={s.error}>{errorSearch}</p>
-        )}
+        {errorMessage}
 
         {loading ? (
           <HashLoader size={100} className={s.spinner} />
@@ -57,9 +63,9 @@ function PokeSearch() {
               <div className={s.cardTitle}>
                 <h1>{pokemonData.name}</h1>
                 <h3>
-                  {pokemonData.id < 1000
-                    ? `#${pokemonData.id.toString().padStart(3, "0")}`
-                    : `#${pokemonData.id}`}
+                  {pokemonData!.id < 1000
+                    ? `#${pokemonData!.id.toString().padStart(3, "0")}`
+                    : `#${pokemonData!.id}`}
                 </h3>
               </div>
 
@@ -70,7 +76,7 @@ function PokeSearch() {
               />
 
               <div className={s.cardLabel}>
-                {pokemonData.types.map((t) => {
+                {pokemonData?.types.map((t) => {
                   const backColor: string = typeColors[t.type.name];
                   return (
                     <span
@@ -102,14 +108,8 @@ function PokeSearch() {
               </div>
 
               <button onClick={toggleFavorite} className={s.buttonFav}>
-                {isFavorite ? (
-                  <img src="src/images/fav-on.svg" alt="favorite" />
-                ) : (
-                  <img src="src/images/fav-off.svg" alt="no-favorite" />
-                )}
-                <span>
-                  {isFavorite ? "Remove Favorite" : "Mark as Favorite"}
-                </span>
+                <img src={src} alt={alt} />
+                <span>{buttonName}</span>
               </button>
             </>
           )

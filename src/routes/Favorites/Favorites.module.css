@@ -1,0 +1,105 @@
+.logout {
+  position: absolute;
+  left: 257px;
+  top: 15px;
+  padding: 8px 16px;
+  gap: 10px;
+  background-color: transparent;
+  border-radius: 16px;
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 11px;
+  color: rgba(102, 102, 102, 1);
+  border: solid 1px rgb(145, 144, 144);
+  transition: background-color 0.3s ease;
+}
+
+.logout:hover {
+  background-color: rgb(230, 84, 84);
+  cursor: pointer;
+  color: rgba(255, 255, 255, 1);
+  border: none;
+}
+
+.title {
+  width: 225px;
+  position: absolute;
+  left: 67px;
+  top: 52px;
+}
+
+.favorites {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 0px;
+  gap: 8px;
+  position: absolute;
+  width: 328px;
+  left: 16px;
+  top: 116px;
+}
+
+.favorites li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  width: 104px;
+  background-color: transparent;
+  border-radius: 8px;
+}
+
+.favorites div {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 8px 0px;
+  width: 100%;
+}
+
+.favorites button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  height: 16px;
+}
+
+.favorites button:hover {
+  cursor: pointer;
+  background-color: transparent;
+  transition: all 0.22 ease;
+}
+
+.starImg {
+  width: 16px;
+  height: 16px;
+}
+
+.favorites p {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 8px;
+  line-height: 12px;
+  text-align: center;
+}
+
+.favImg {
+  padding: 0px;
+  width: 72px;
+  height: 72px;
+}
+
+.favorites span {
+  text-align: center;
+  padding: 0;
+  width: 100%;
+  font-size: 10px;
+  line-height: 24px;
+  color: rgba(255, 255, 255, 1);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border: none;
+}

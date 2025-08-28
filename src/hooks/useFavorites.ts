@@ -102,5 +102,31 @@ export function useFavorites(pokemonData?: PokemonData, imageUrl?: string) {
     } else addFavorites();
   }
 
-  return { pokemonFavs, isFavorite, toggleFavorite };
+  async function deleteFavById(deleteId: number) {
+    const favoriteToRemove = pokemonFavs.find(
+      (fav) => Number(fav.pokemon_id) === deleteId
+    );
+
+    const url = `${BASE_URL}/favorites/${favoriteToRemove?.id}`;
+    const options = {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${authProvider.token}`,
+      },
+    };
+
+    try {
+      const response = await fetch(url, options);
+      if (!response.ok) throw new Error("Error al agregar a favoritos");
+      const updatedFavs = pokemonFavs.filter(
+        (fav) => fav.id !== favoriteToRemove?.id
+      );
+      setPokemonFavs(updatedFavs);
+      localStorage.setItem("pokemon_favs", JSON.stringify(updatedFavs));
+    } catch (error) {
+      return { error: (error as Error).message };
+    }
+  }
+
+  return { pokemonFavs, isFavorite, deleteFavById, toggleFavorite };
 }
