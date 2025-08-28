@@ -1,45 +1,14 @@
 import s from "./Profile.module.css";
 import { Form, useFetcher, useNavigation } from "react-router-dom";
 import NavBar from "../NavBar";
-import { useEffect, useState, type ChangeEvent } from "react";
-import { authProvider, BASE_URL } from "../../auth";
+import type { ChangeEvent } from "react";
 import { HashLoader } from "react-spinners";
-
-interface ProfileData {
-  email: string;
-  first_name: string;
-  last_name: string;
-}
+import { useProfile } from "../../hooks/useProfile";
 
 function Profile() {
   const Fetcher = useFetcher();
   const navigation = useNavigation();
-  const [profileData, setProfileData] = useState<ProfileData>({
-    email: "",
-    first_name: "",
-    last_name: "",
-  });
-  const [password, setPassword] = useState<string>("");
-
-  useEffect(() => {
-    const url = `${BASE_URL}/profile`;
-    const options: RequestInit = {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${authProvider.token}`,
-      },
-    };
-
-    fetch(url, options)
-      .then((res) => {
-        if (!res.ok) throw new Error("Error al obtener el perfil");
-        return res.json();
-      })
-      .then((data: ProfileData) => {
-        setProfileData(data);
-        sessionStorage.setItem("original_profile_data", JSON.stringify(data));
-      });
-  }, []);
+  const { profileData, setProfileData, password, setPassword } = useProfile();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

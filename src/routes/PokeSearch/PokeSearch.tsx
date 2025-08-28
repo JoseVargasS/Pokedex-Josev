@@ -2,104 +2,12 @@ import s from "./PokeSearch.module.css";
 import { useFetcher } from "react-router-dom";
 import NavBar from "../NavBar";
 import { HashLoader } from "react-spinners";
-import { useEffect, useState, type FormEvent } from "react";
-import { authProvider, BASE_URL } from "../../auth";
-
-interface PokemonData {
-  id: number;
-  name: string;
-  sprites: {
-    other: {
-      "official-artwork": {
-        front_default: string;
-      };
-    };
-  };
-  types: {
-    type: {
-      name: string;
-    };
-  }[];
-  weight: number;
-  height: number;
-}
-
-interface PokemonFavs {
-  id: number;
-  pokemon_name: string;
-  pokemon_id: string;
-  pokemon_avatar_url: string;
-  pokemon_type: string;
-}
-
-function useSearch() {
-  const [pokemon, setPokemon] = useState<string | number>("");
-  const [pokemonData, setPokemonData] = useState<PokemonData | null>(null);
-  const [errorSearch, setErrorSearch] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  async function handleSearch(pokemonName: string | number) {
-    const url = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
-    //personalizo error
-    const err =
-      typeof pokemonName === "number" && pokemonName > 1025
-        ? "No hay más de 1025 pokémon"
-        : "Pokémon no encontrado";
-    //seteo error a null para que no se muestre despues de una busqueda fallida
-    setErrorSearch(null);
-    setLoading(true);
-
-    try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error(err);
-      const data: PokemonData = await response.json();
-      setPokemonData(data);
-    } catch (error) {
-      setErrorSearch((error as Error).message);
-      setPokemonData(null);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  const imageUrl = pokemonData?.sprites.other["official-artwork"].front_default;
-
-  const typeColors: Record<string, string> = {
-    normal: "rgba(170, 166, 127, 1)",
-    fire: "rgba(245, 125, 49, 1)",
-    water: "rgba(100, 147, 235, 1)",
-    electric: "rgba(249, 207, 48, 1)",
-    grass: "rgba(116, 203, 72, 1)",
-    ice: "rgba(154, 214, 223, 1)",
-    fighting: "rgba(193, 34, 57, 1)",
-    poison: "rgba(164, 62, 158, 1)",
-    ground: "rgba(222, 193, 107, 1)",
-    flying: "rgba(168, 145, 236, 1)",
-    psychic: "rgba(251, 85, 132, 1)",
-    bug: "rgba(167, 183, 35, 1)",
-    rock: "rgba(182, 158, 49, 1)",
-    ghost: "rgba(112, 85, 155, 1)",
-    dragon: "rgba(112, 55, 255, 1)",
-    dark: "rgba(117, 87, 76, 1)",
-    steel: "rgba(183, 185, 208, 1)",
-    fairy: "rgba(230, 158, 172, 1)",
-  };
-
-  return {
-    pokemon,
-    setPokemon,
-    handleSearch,
-    pokemonData,
-    imageUrl,
-    typeColors,
-    errorSearch,
-    loading,
-  };
-}
+import { useSearch } from "../../hooks/useSearch";
+import { useFavorites } from "../../hooks/useFavorites";
+import type { FormEvent } from "react";
 
 function PokeSearch() {
   const Fetcher = useFetcher();
-  const [pokemonFavs, setPokemonFavs] = useState<PokemonFavs[] | []>([]);
 
   const {
     pokemon,
@@ -111,32 +19,7 @@ function PokeSearch() {
     errorSearch,
     loading,
   } = useSearch();
-
-  useEffect(() => {
-    async function loadFavorites() {
-      const url = `${BASE_URL}/favorites`;
-      const options: RequestInit = {
-        headers: { Authorization: `Bearer ${authProvider.token}` },
-      };
-
-      try {
-        const response = await fetch(url, options);
-        if (!response.ok) throw new Error("Error al cargar favoritos");
-        const data = await response.json();
-        setPokemonFavs(data);
-        console.log("ejecutado");
-        localStorage.setItem("pokemon_favs", JSON.stringify(data));
-      } catch (error) {
-        return { error: (error as Error).message };
-      }
-    }
-
-    loadFavorites();
-  }, []);
-
-  const isFavorite =
-    pokemonData &&
-    pokemonFavs.some((fav) => Number(fav.pokemon_id) === pokemonData.id);
+  const { isFavorite, toggleFavorite } = useFavorites(pokemonData!, imageUrl);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -218,7 +101,7 @@ function PokeSearch() {
                 </div>
               </div>
 
-              <button className={s.buttonFav}>
+              <button onClick={toggleFavorite} className={s.buttonFav}>
                 {isFavorite ? (
                   <img src="src/images/fav-on.svg" alt="favorite" />
                 ) : (
