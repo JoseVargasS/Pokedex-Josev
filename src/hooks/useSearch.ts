@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { t } from "../translate";
+import { TranslateContext } from "../contexts/Translate";
 
 export interface PokemonData {
   id: number;
@@ -24,14 +26,15 @@ export function useSearch() {
   const [pokemonData, setPokemonData] = useState<PokemonData | null>(null);
   const [errorSearch, setErrorSearch] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const { lang } = useContext(TranslateContext);
 
   async function handleSearch(pokemonName: string | number) {
     const url = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
     //personalizo error
     const err =
-      typeof pokemonName === "number" && pokemonName > 1025
+      pokemonName === "number" && Number(pokemonName) > 1025
         ? "No hay más de 1025 pokémon"
-        : "Pokémon no encontrado";
+        : t[lang].errSearch;
     //seteo error a null para que no se muestre despues de una busqueda fallida
     setErrorSearch(null);
     setLoading(true);

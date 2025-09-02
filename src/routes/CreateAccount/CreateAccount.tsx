@@ -1,40 +1,46 @@
 import { Form, Link, useNavigation } from "react-router-dom";
 import s from "./CreateAccount.module.css";
 import { HashLoader } from "react-spinners";
+import Translate from "../Translate";
+import { t } from "../../translate";
+import { useContext } from "react";
+import { TranslateContext } from "../../contexts/Translate";
 
 function CreateAccount() {
   const navigation = useNavigation();
+  const { lang } = useContext(TranslateContext);
 
   return (
     <>
-      <h1 className={s.title}>Welcome to Poke Collection</h1>
+      <Translate />
+      <h1 className={s.title}>{t[lang].cAccTitle}</h1>
       <div className={s.createAccountForm}>
         <Form method="post" replace>
           <label>
-            <p>Email</p>
+            <p>{t[lang].email}</p>
             <input name="email" placeholder="example@mail.com" />
           </label>
           <label>
-            <p>Password</p>
-            <input name="password" type="password" placeholder="*******" />
+            <p>{t[lang].password}</p>
+            <input name="password" type="password" placeholder="******" />
           </label>
           <label>
-            <p>First Name</p>
+            <p>{t[lang].firstName}</p>
             <input name="first_name" placeholder="Dina" />
           </label>
           <label>
-            <p>Last Name</p>
+            <p>{t[lang].lastName}</p>
             <input name="last_name" placeholder="Boluarte" />
           </label>
 
           {navigation.state === "submitting" ? (
             <HashLoader />
           ) : (
-            <button type="submit">Create Account</button>
+            <button type="submit">{t[lang].cAcc}</button>
           )}
         </Form>
         <Link to="/">
-          <h3>Login</h3>
+          <h3>{t[lang].login}</h3>
         </Link>
       </div>
     </>

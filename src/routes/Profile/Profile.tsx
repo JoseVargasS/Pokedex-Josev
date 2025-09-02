@@ -1,14 +1,18 @@
 import s from "./Profile.module.css";
-import { Form, useFetcher, useNavigation } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import NavBar from "../NavBar";
-import type { ChangeEvent } from "react";
+import { useContext, type ChangeEvent } from "react";
 import { HashLoader } from "react-spinners";
 import { useProfile } from "../../hooks/useProfile";
+import { TranslateContext } from "../../contexts/Translate";
+import { t } from "../../translate";
+import Translate from "../Translate";
+import Logout from "../Logout";
 
 function Profile() {
-  const Fetcher = useFetcher();
   const navigation = useNavigation();
   const { profileData, setProfileData, password, setPassword } = useProfile();
+  const { lang } = useContext(TranslateContext);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -17,16 +21,16 @@ function Profile() {
 
   return (
     <>
-      <Fetcher.Form method="post" action="/logout">
-        <button className={s.logout}>Logout</button>
-      </Fetcher.Form>
+      <Translate />
 
-      <h1 className={s.title}>Profile</h1>
+      <Logout />
+
+      <h1 className={s.title}>{t[lang].profile}</h1>
 
       <div className={s.profileForm}>
         <Form method="post" action="/profile">
           <label>
-            <p>Email</p>
+            <p>{t[lang].email}</p>
             <input
               name="email"
               value={profileData.email}
@@ -34,7 +38,7 @@ function Profile() {
             />
           </label>
           <label>
-            <p>Password (dejar vacío para no cambiar)</p>
+            <p>{`${t[lang].password} (${t[lang].blank})`}</p>
             <input
               name="password"
               type="password"
@@ -43,7 +47,7 @@ function Profile() {
             />
           </label>
           <label>
-            <p>First Name</p>
+            <p>{t[lang].firstName}</p>
             <input
               name="first_name"
               value={profileData.first_name}
@@ -51,7 +55,7 @@ function Profile() {
             />
           </label>
           <label>
-            <p>Last Name</p>
+            <p>{t[lang].lastName}</p>
             <input
               name="last_name"
               value={profileData.last_name}
@@ -62,7 +66,7 @@ function Profile() {
           {navigation.state === "submitting" ? (
             <HashLoader />
           ) : (
-            <button type="submit">Update</button>
+            <button type="submit">{t[lang].update}</button>
           )}
         </Form>
       </div>

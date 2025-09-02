@@ -1,23 +1,26 @@
 import s from "./Favorites.module.css";
 import { useFavorites } from "../../hooks/useFavorites";
 import NavBar from "../NavBar";
-import { useFetcher } from "react-router-dom";
 import { useSearch } from "../../hooks/useSearch";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import Translate from "../Translate";
+import { TranslateContext } from "../../contexts/Translate";
+import { t } from "../../translate";
+import Logout from "../Logout";
 
 function Favorites() {
-  const Fetcher = useFetcher();
   const { typeColors } = useSearch();
   const { pokemonFavs, deleteFavById } = useFavorites();
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+  const { lang } = useContext(TranslateContext);
 
   return (
     <>
-      <Fetcher.Form method="post" action="/logout">
-        <button className={s.logout}>Logout</button>
-      </Fetcher.Form>
+      <Translate />
 
-      <h1 className={s.title}>Favorites</h1>
+      <Logout />
+
+      <h1 className={s.title}>{t[lang].fav}</h1>
       <ul className={s.favorites}>
         {pokemonFavs.map((fav) => {
           const backColor = typeColors[fav.pokemon_type];

@@ -1,0 +1,36 @@
+.language {
+  position: absolute;
+  left: 38px;
+  top: 15px;
+  gap: 0px;
+  padding: 4px;
+}
+
+.language > button {
+  border: none;
+  background-color: transparent;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 11px;
+  color: rgba(102, 102, 102, 1);
+}
+
+.language > button:first-child {
+  padding: 8px 5px 8px 10px;
+  border-style: solid;
+  border-color: rgb(145, 144, 144);
+  border-width: 1px 0 1px 1px;
+  border-radius: 10px 0 0 10px;
+}
+
+.language > button:last-child {
+  padding: 8px 10px 8px 5px;
+  border-style: solid;
+  border-color: rgb(145, 144, 144);
+  border-width: 1px 1px 1px 0;
+  border-radius: 0 10px 10px 0;
+}
+
+.language > button:hover {
+  cursor: pointer;
+}

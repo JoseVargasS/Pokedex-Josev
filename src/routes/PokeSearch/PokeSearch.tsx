@@ -1,13 +1,16 @@
 import s from "./PokeSearch.module.css";
-import { useFetcher } from "react-router-dom";
 import NavBar from "../NavBar";
 import { HashLoader } from "react-spinners";
 import { useSearch } from "../../hooks/useSearch";
 import { useFavorites } from "../../hooks/useFavorites";
-import type { FormEvent } from "react";
+import { useContext, type FormEvent } from "react";
+import { TranslateContext } from "../../contexts/Translate";
+import { t } from "../../translate";
+import Translate from "../Translate";
+import Logout from "../Logout";
 
 function PokeSearch() {
-  const Fetcher = useFetcher();
+  const { lang } = useContext(TranslateContext);
 
   const {
     pokemon,
@@ -23,7 +26,7 @@ function PokeSearch() {
 
   const src = isFavorite ? "src/images/fav-on.svg" : "src/images/fav-off.svg";
   const alt = isFavorite ? "favorite" : "no-favorite";
-  const buttonName = isFavorite ? "Remove Favorite" : "Mark as Favorite";
+  const buttonName = isFavorite ? t[lang].delFav : t[lang].addfav;
 
   const errorMessage = errorSearch && pokemon !== "" && (
     <p className={s.error}>{errorSearch}</p>
@@ -36,21 +39,21 @@ function PokeSearch() {
 
   return (
     <>
-      <Fetcher.Form method="post" action="/logout">
-        <button className={s.logout}>Logout</button>
-      </Fetcher.Form>
+      <Translate />
+
+      <Logout />
 
       <div className={s.search}>
         <form onSubmit={handleSubmit}>
           <label>
             <input
               name="search"
-              placeholder="pokemon name"
+              placeholder={t[lang].phldSearch}
               value={pokemon}
               onChange={(e) => setPokemon(e.target.value)}
             />
           </label>
-          <button type="submit">Search</button>
+          <button type="submit">{t[lang].search}</button>
         </form>
 
         {errorMessage}
@@ -95,7 +98,7 @@ function PokeSearch() {
                     <img src="src/images/weight.svg" alt="weight" />
                     <span>{(pokemonData.weight / 10).toFixed(1)} kg</span>
                   </div>
-                  <h4>Weight</h4>
+                  <h4>{t[lang].weight}</h4>
                 </div>
                 <hr />
                 <div>
@@ -103,7 +106,7 @@ function PokeSearch() {
                     <img src="src/images/height.svg" alt="height" />
                     <span>{(pokemonData.height / 10).toFixed(1)} m</span>
                   </div>
-                  <h4>Height</h4>
+                  <h4>{t[lang].height}</h4>
                 </div>
               </div>
 
@@ -118,7 +121,7 @@ function PokeSearch() {
         {pokemon === "" && !pokemonData && (
           <div className={s.default}>
             <img src="src/images/unknow-poke.png" alt="unknow pokemon" />
-            <h3>Ready to search</h3>
+            <h3>{t[lang].noSearch}</h3>
           </div>
         )}
       </div>

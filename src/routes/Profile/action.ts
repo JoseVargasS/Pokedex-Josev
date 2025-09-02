@@ -9,8 +9,9 @@ export async function action({ request }: ActionFunctionArgs) {
   const last_name = formData.get("last_name") as string;
   const password = formData.get("password") as string;
 
-  //obitne datos originales del perfil (antes de editar)
+  //obtiene datos originales del perfil (antes de editar)
   const originalProfileData = sessionStorage.getItem("original_profile_data");
+  //si existe, parsea los datos obtenidos en JSON a objeto
   const originalData = originalProfileData
     ? JSON.parse(originalProfileData)
     : {};
@@ -23,6 +24,7 @@ export async function action({ request }: ActionFunctionArgs) {
     password: string;
   }> = {};
 
+  //verifica y crea solo los campos que han cambiado y llena el objeto "updateData" con esos valores
   if (email !== originalData.email) updateData.email = email;
   if (first_name !== originalData.first_name)
     updateData.first_name = first_name;
@@ -30,6 +32,7 @@ export async function action({ request }: ActionFunctionArgs) {
   if (password) updateData.password = password;
 
   try {
+    //ejecuta el metodo "updateProfile" para solicitar al servidor actualizar los datos del perfil
     await authProvider.updateProfile(updateData);
   } catch (error) {
     return { error: (error as Error).message };
